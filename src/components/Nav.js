@@ -13,12 +13,15 @@ const Nav = (props) => {
 			</div>
 			<span className="normalText">A React App for County Fair Hog Fans</span><br/><br/>
 			<label>Sort hogs by: </label>
-			<select onChange={props.sortHogs}>
+			<select onChange={props.sortByTerm}>
 				<option value="name">Name</option>
 				<option value="weight">Weight</option>
-				<option value="greased">Greased</option>
 				<option value="all">Show All</option>
 			</select>
+			<label>  Greased?  </label>
+			<input
+				onClick={props.checkedGreased}
+				type="checkbox"/>
 		</div>
 	)
 }

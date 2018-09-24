@@ -8,65 +8,59 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      hogs: hogs,
-      filters: {
-        type: 'all'
-      }
+      greased: false,
+      sortBy: "all"
     }
   }
 
-  sortHogs = (event) => {
-    // console.log(event.target.value)
-    if (event.target.value === "greased") {
-      let greasedHogs = hogs.filter(hog => hog.greased === true)
-      this.setState({
-        hogs: greasedHogs,
-        filters: {
-          type: "greased"
-        }
-      })
-    }
-    else if (event.target.value === "name") {
-      let sortedNameHogs = hogs.sort(function(hog1, hog2) {
-        return hog1.name.localeCompare(hog2.name)
-      })
-      this.setState({
-        hogs: sortedNameHogs,
-        filters: {
-          type: "name"
-        }
-      })
-    }
-    else if (event.target.value === "weight") {
-      let sortedWeightHogs = hogs.sort(function(hog1, hog2) {
-        return hog1['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] - hog2['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
-      })
-      this.setState({
-        hogs: sortedWeightHogs,
-        filters: {
-          type: "weight"
-        }
-      })
+  checkedGreased = () => {
+    this.setState((prevState)=>{
+      return {greased: !prevState.greased}
+    })
+  }
+
+  sortByTerm = (event) => {
+    let term = event.target.value
+    this.setState({
+      sortBy: term
+    })
+  }
+
+  showGreasedHogs = () => {
+    if (this.state.greased) {
+      return hogs.filter(hog => hog.greased)
     }
     else {
-      this.setState({
-        hogs: hogs,
-        filters: {
-          type: 'all'
-        }
-      })
+      return hogs
     }
   }
 
+  showHogs = () => {
+    let currentHogs = this.showGreasedHogs()
+    if (this.state.sortBy === "name") {
+      return currentHogs.sort(function(hog1, hog2) {
+        return hog1.name.localeCompare(hog2.name)
+      })
+    }
+    else if (this.state.sortBy === "weight") {
+      return currentHogs.sort(function(hog1, hog2) {
+        return hog1['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'] -    hog2['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']
+        })
+    }
+    else {
+      return hogs
+    }
+  }
   render() {
-    console.log("App", this.state.hogs)
+    console.log("App", this.state.greased)
     return (
       <div className="App">
-          < Nav
-            sortHogs={this.sortHogs}
+          <Nav
+            checkedGreased={this.checkedGreased}
+            sortByTerm={this.sortByTerm}
           />
-          < HogShowcase
-            hogs={this.state.hogs}
+          <HogShowcase
+            hogs={this.showHogs()}
           />
       </div>
     )

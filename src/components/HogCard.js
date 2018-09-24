@@ -34,6 +34,7 @@ class HogCard extends Component {
           </div>
          }
       </div>
+      
     )
   }
 }
