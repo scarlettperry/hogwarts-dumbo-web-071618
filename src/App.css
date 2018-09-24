@@ -64,7 +64,7 @@ ul {
 
 .subtleText {
   color: #D1D1D1;
-  font-size: .75em; 
+  font-size: .75em;
 }
 
 
@@ -77,10 +77,11 @@ ul {
   display: inline;
   background-repeat: no-repeat;
   background-position: center 90%;
+  background-color: rgb(242, 225, 225);
   float: left;
   margin: 2%;
   padding: 1%;
-  outline: #3B0B0B dotted thick;
+  outline: #ff378b dotted thick;
   transition: 0.75s;
   opacity: 1;
 }
@@ -131,6 +132,10 @@ ul {
 .footer {
   padding: 1%;
   clear: both;
+}
+
+.button {
+  background-color: pink;
 }
 
 
